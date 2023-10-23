@@ -6,9 +6,9 @@ services:
   ports:
    - 7878:7878
   volumes:
-    - <\path to data>:/config
-    - <\path/to/movies>:/movies
-    - <\path/to/downloadclient-downloads>:/downloads
+    - mediasrv/radarr:/config
+    - mediasrv/media:/movies
+    - mediasrv/deluge:/downloads
   environment:
    - PUID=1000
    - PGID=1000
@@ -21,9 +21,9 @@ services:
   ports:
    - 8989:8989
   volumes:
-    - <\path to data>:/config
-    - <\path/to/tv>:/tv
-    - <\path/to/downloadclient-downloads>:/downloads
+    - mediasrv/sonarr:/config
+    - mediasrv/media:/tv
+    - mediasrv/deluge:/downloads
   environment:
    - PUID=1000
    - PGID=1000
@@ -36,7 +36,7 @@ services:
   ports:
    - 9117:9117
   volumes:
-   - <\path to data>:/config
+   - mediasrv/jackett:/config
   environment:
    - PUID=1000
    - PGID=1000
@@ -54,6 +54,13 @@ services:
       - UMASK_SET=000 #optional
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - <\/path/to/deluge/config>:/config
-      - <\/path/to/your/downloads>:/downloads
+      - mediasrv/deluge:/config
+      - mediasrv/deluge:/downloads
     restart: unless-stopped
+    
+volumes:
+  mediasrv:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.2.41,nolock,soft,rw"
+      device: ":/plex"
