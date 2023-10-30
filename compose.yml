@@ -7,9 +7,9 @@ services:
   ports:
    - 7878:7878
   volumes:
-    - mediasrv:/radarr/config
-    - mediasrv:/media/movies
-    - mediasrv:/deluge/downloads
+    - mediasrv/radarr/config:/radarr/config
+    - mediasrv/media/movies:/media/movies
+    - mediasrv/deluge/downloads:/deluge/downloads
   environment:
    - PUID=1000
    - PGID=1000
@@ -22,9 +22,9 @@ services:
   ports:
    - 8989:8989
   volumes:
-    - mediasrv:/sonarr/config
-    - mediasrv:/media/tv
-    - mediasrv:/deluge/downloads
+    - mediasrv/sonarr/config:/sonarr/config
+    - mediasrv/media/shows:/media/shows
+    - mediasrv/deluge/downloads:/deluge/downloads
   environment:
    - PUID=1000
    - PGID=1000
@@ -52,8 +52,8 @@ services:
    - 6881:6881
    - 6881:6881/udp
   volumes:
-   - mediasrv:/deluge/config
-   - mediasrv:/deluge/downloads
+   - mediasrv/deluge/config:/deluge/config
+   - mediasrv/deluge/downloads:/deluge/downloads
   environment:
    - PUID=1000
    - PGID=1000
